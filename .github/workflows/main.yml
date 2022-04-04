@@ -27,6 +27,7 @@ jobs:
             guisilveira/rotten-potatoes:latest
             guisilveira/rotten-potatoes:${{ github.run_number }}
   cd:
+    needs: [ci]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
