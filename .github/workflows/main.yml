@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -26,3 +26,18 @@ jobs:
           tags: |
             guisilveira/rotten-potatoes:latest
             guisilveira/rotten-potatoes:${{ github.run_number }}
+  cd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Kubernetes context
+        uses: Azure/k8s-set-context@v2
+        with:
+          kubeconfig: ${{ secrets.K8S_CONFIG }}
+      - name: Deploy to K8S
+        uses: Azure/k8s-deploy@v3.0
+        with:
+          images: guisilveira/rotten-potatoes:${{ github.run_number }}
+          manifests: |
+            k8s/deployment.yaml
+        
