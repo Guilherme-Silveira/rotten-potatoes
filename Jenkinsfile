@@ -34,7 +34,7 @@ pipeline {
       steps {
         container('docker') {
           script {
-            dockerapp = docker.build("guisilveira/rotten-potatoes:${env.BUILD_ID}", "-f ./src/Dockerfile .")
+            dockerapp = docker.build("guisilveira/rotten-potatoes:${env.BUILD_ID}", "-f ./src/Dockerfile ./src")
           }
         }
       }
