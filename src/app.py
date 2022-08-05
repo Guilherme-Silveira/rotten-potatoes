@@ -27,7 +27,7 @@ app.config['ELASTIC_APM'] = {
 'SECRET_TOKEN': '9MZ02P93kdhq8sk788wVd5Oj',
 
 # Set the custom APM Server URL (default: http://localhost:8200)
-'SERVER_URL': 'http://apm-server-quickstart-apm-http:8200',
+'SERVER_URL': 'http://apm-server-quickstart-apm-http.eck.svc:8200',
 
 # Set the service environment
 'ENVIRONMENT': 'production',
