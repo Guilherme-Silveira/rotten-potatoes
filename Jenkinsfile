@@ -58,7 +58,7 @@ pipeline {
       steps {
         container('kubectl') {
           git url: 'https://github.com/Guilherme-Silveira/rotten-potatoes.git', branch: 'main'
-          withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://k3d-silveira-server-0:6443']) {
+          withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://k3d-k3s-default-server-0:6443']) {
             sh 'sed -i "s/{{tag}}/$tag_version/g" ./k8s/deployment.yaml'
             sh 'kubectl apply -f ./k8s'
           }
