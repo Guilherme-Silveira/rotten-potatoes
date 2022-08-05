@@ -9,6 +9,7 @@ import bson
 from prometheus_flask_exporter import PrometheusMetrics
 from middleware import set_unhealth, set_unready_for_seconds, middleware
 from datetime import datetime
+from elasticapm.contrib.flask import ElasticAPM
 
 app = Flask(__name__,
             static_url_path='', 
@@ -16,6 +17,24 @@ app = Flask(__name__,
             template_folder='templates')
 
 app.wsgi_app = middleware(app.wsgi_app)
+
+app.config['ELASTIC_APM'] = {
+# Set the required service name. Allowed characters:
+# a-z, A-Z, 0-9, -, _, and space
+'SERVICE_NAME': 'rotten-potatoes',
+
+# Use if APM Server requires a secret token
+'SECRET_TOKEN': '9MZ02P93kdhq8sk788wVd5Oj',
+
+# Set the custom APM Server URL (default: http://localhost:8200)
+'SERVER_URL': 'http://apm-server-quickstart-apm-http:8200',
+
+# Set the service environment
+'ENVIRONMENT': 'production',
+}
+
+apm = ElasticAPM(app)
+
 
 metrics = PrometheusMetrics(app, default_labels={'version': '1.0'})
 
