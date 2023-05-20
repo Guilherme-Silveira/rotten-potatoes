@@ -24,10 +24,10 @@ app.config['ELASTIC_APM'] = {
 'SERVICE_NAME': 'rotten-potatoes',
 
 # Use if APM Server requires a secret token
-'SECRET_TOKEN': '9MZ02P93kdhq8sk788wVd5Oj',
+#'SECRET_TOKEN': '9MZ02P93kdhq8sk788wVd5Oj',
 
 # Set the custom APM Server URL (default: http://localhost:8200)
-'SERVER_URL': 'http://apm-server-quickstart-apm-http.eck.svc:8200',
+'SERVER_URL': os.getenv("ELASTIC_APM_SERVER_URL", "http://fleet-server:8200"),
 
 # Set the service environment
 'ENVIRONMENT': 'production',

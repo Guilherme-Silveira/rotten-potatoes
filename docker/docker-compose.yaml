@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    hostname: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: mongopwd
+    networks:
+      - elk
+
+  web:
+    image: guisilveira/rotten-potatoes
+    container_name: web
+    hostname: web
+    ports:
+      - 5002:5000
+    environment:
+      MONGODB_DB: admin
+      MONGODB_HOST: mongodb
+      MONGODB_PORT: 27017
+      MONGODB_USERNAME: mongouser
+      MONGODB_PASSWORD: mongopwd
+    networks:
+      - elk
+
+networks:
+  elk:
+    external: true
