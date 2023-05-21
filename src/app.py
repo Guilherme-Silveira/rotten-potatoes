@@ -10,6 +10,7 @@ from prometheus_flask_exporter import PrometheusMetrics
 from middleware import set_unhealth, set_unready_for_seconds, middleware
 from datetime import datetime
 from elasticapm.contrib.flask import ElasticAPM
+from elasticapm import capture_span
 
 app = Flask(__name__,
             static_url_path='', 
@@ -33,7 +34,7 @@ app.config['ELASTIC_APM'] = {
 'ENVIRONMENT': 'production',
 }
 
-apm = ElasticAPM(app)
+apm = ElasticAPM(app, logging=True)
 
 
 metrics = PrometheusMetrics(app, default_labels={'version': '1.0'})
